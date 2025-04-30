@@ -1,0 +1,31 @@
+.sidebar {
+  width: 250px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  padding-top: 80px; 
+}
+.container_url{
+  margin-left:55px ;
+}
+
+main {
+  margin-left: 250px; 
+}
+
+.list-group-item:hover {
+  background-color: #f8f9fa;
+  transition: background-color 0.3s;
+}
+
+.list-group-item.active {
+  background-color: rgb(206, 37, 37);
+  border-color: rgb(206, 37, 37);
+}
+
+.nav-link.active {
+  font-weight: bold;
+  color: #fff !important;
+}
