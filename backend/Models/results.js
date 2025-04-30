@@ -10,7 +10,8 @@ const resultsSchema = new Schema({
         userAnswer:{type:String,default:''}
     }
     ]},
-    score:{type:Number,required:true}
+    score:{type:Number,required:true},
+    submittedAt: { type: Date, default: Date.now }
 },{
     timestamps: true, 
 });
