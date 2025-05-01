@@ -18,11 +18,17 @@
           <i class="fas fa-id-badge fa-fw me-3"></i><span class="fs-6 fw-semibold">Exams</span>
         </a>
         <a
+          [routerLink]="['/add-exam']" (click)="navigateToAddExam($event)"
+          class="list-group-item list-group-item-action py-2 my-2 rounded"
+        >
+          <i class="fas fa-id-badge fa-fw me-3"></i><span class="fs-6 fw-semibold">Add Exam</span>
+        </a>
+        <a
           href="#"
           class="list-group-item list-group-item-action py-2 my-2 rounded"
           
         >
-          <i class="fas fa-id-badge fa-fw me-3"></i><span class="fs-6 fw-semibold">Results</span>
+          <i class="fas fa-id-badge fa-fw me-3"></i><span class="fs-6 fw-semibold">Student's Results</span>
         </a>
         <a
           href="#"

@@ -1,3 +1,5 @@
 import { Routes } from '@angular/router';
-
-export const routes: Routes = [];
+import {AddExamComponent} from './features/admin/add-exam/add-exam.component'
+export const routes: Routes = [
+  {path:'add-exam',component:AddExamComponent}
+];
