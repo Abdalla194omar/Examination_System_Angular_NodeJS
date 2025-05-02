@@ -15,14 +15,12 @@ exports.auth = catchAsync((req, res, next) => {
 });
 
 exports.restrictTo = (...roles) => {
-  return (req, res, next) => {
+  return catchAsync(async (req, res, next) => {
     if (!roles.includes(req.role)) {
-      return res.status(403).json({
-        status: "fail",
-        message: "No permission to perform this action",
-      });
-    } else {
-      next();
+      return next(
+        new AppError(403, "No permission to perform this action", "fail")
+      );
     }
-  };
+    next();
+  });
 };

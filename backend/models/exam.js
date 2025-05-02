@@ -6,6 +6,13 @@ const examSchema = new mongoose.Schema(
       unique: true,
       type: String,
       required: true,
+      trim: true,
+      validate: {
+        validator: function (v) {
+          return v.length > 0;
+        },
+        message: (props) => `${props.value} is not a valid title!`,
+      },
     },
     description: {
       type: String,
