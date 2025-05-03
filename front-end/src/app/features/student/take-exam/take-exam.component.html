@@ -1,1 +1,68 @@
-<p>take-exam works!</p>
+<div class="container mt-5">
+  <!-- @if (exam()) { -->
+    <h1 class="display-6 mb-4"></h1>
+    <p class="lead mb-4"></p>
+    <p><strong>Deadline:</strong></p>
+  <!-- } -->
+
+  <!-- @if (questions().length === 0) {
+    <p>No questions available for this exam.</p>
+  } @else { -->
+    <form [formGroup]="examForm" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+      <!-- @for (question of questions(); track question._id; let i = $index) { -->
+        <div class="card mb-3">
+          <div class="card-body">
+            <h5 class="card-title"></h5>
+            <!-- <div [formGroup]="answers.at(i)">
+              @if (question.isMultiple) {
+                <div formArrayName="answer">
+                  @for (choice of question.choices; track choice; let j = $index) {
+                    <div class="form-check">
+                      <input
+                        type="checkbox"
+                        [id]="'answer-' + i + '-' + j"
+                        class="form-check-input"
+                        [value]="choice"
+                        (change)="onCheckboxChange($event, i, choice)"
+                      />
+                      <label [for]="'answer-' + i + '-' + j" class="form-check-label">{{ choice }}</label>
+                    </div>
+                  }
+                </div>
+              } @else {
+                <div formControlName="answer">
+                  @for (choice of question.choices; track choice; let j = $index) {
+                    <div class="form-check">
+                      <input
+                        type="radio"
+                        [id]="'answer-' + i + '-' + j"
+                        class="form-check-input"
+                        [value]="choice"
+                        formControlName="answer"
+                        required
+                      />
+                      <label [for]="'answer-' + i + '-' + j" class="form-check-label">{{ choice }}</label>
+                    </div>
+                  }
+                </div>
+              }
+            </div> -->
+          </div>
+        </div>
+      <!-- } -->
+
+      <!-- @if (error()) {
+        <div class="alert alert-danger" role="alert">
+          {{ error() }}
+        </div>
+      }
+      @if (success()) {
+        <div class="alert alert-success" role="alert">
+          {{ success() }}
+        </div>
+      } -->
+
+      <button type="submit" class="btn btn-danger text-white w-100">Submit Exam</button>
+    </form>
+  <!-- } -->
+</div>
