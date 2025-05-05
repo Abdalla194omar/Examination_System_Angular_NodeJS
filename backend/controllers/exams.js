@@ -23,7 +23,12 @@ exports.createExam = catchAsync(async (req, res, next) => {
 });
 
 exports.listAllExams = async (req, res, next) => {
-  const exams = await Exam.find({ createdBy: req.id });
+  let exams = [];
+  if (req.role === "admin") {
+    exams = await Exam.find({ createdBy: req.id });
+  } else {
+    exams = await Exam.find();
+  }
   if (!exams || exams.length === 0) {
     return next(new AppError(404, "No exams found", "fail"));
   }

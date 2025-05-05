@@ -7,7 +7,10 @@ const {
   getExamById,
 } = require("../controllers/exams");
 const { restrictTo, auth } = require("../middleware/auth");
-const { createExamSchema } = require("../validation/exam.validation");
+const {
+  createExamSchema,
+  updateExamSchema,
+} = require("../validation/exam.validation");
 const { validation } = require("../middleware/validation");
 const router = express.Router();
 
@@ -20,7 +23,13 @@ router.post(
 );
 router.get("/", auth, listAllExams);
 router.get("/getexam/:id", auth, restrictTo("admin"), getExamById);
-router.patch("/updateexam/:id", auth, restrictTo("admin"), updateExam);
+router.patch(
+  "/updateexam/:id",
+  auth,
+  restrictTo("admin"),
+  validation(updateExamSchema),
+  updateExam
+);
 router.delete("/deleteexam/:id", auth, restrictTo("admin"), deleteExam);
 
 module.exports = router;

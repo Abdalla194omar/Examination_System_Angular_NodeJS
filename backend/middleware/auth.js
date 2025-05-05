@@ -7,8 +7,8 @@ exports.auth = catchAsync((req, res, next) => {
   if (!authorization) {
     return next(new AppError(401, "please login first", "fail"));
   }
-
-  let decoded = jwt.verify(authorization, process.env.JWT_SECRET);
+  const token = authorization.split(" ")[1];
+  let decoded = jwt.verify(token, process.env.JWT_SECRET);
   req.id = decoded.id;
   req.role = decoded.role;
   next();

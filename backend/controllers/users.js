@@ -3,6 +3,7 @@ const AppError = require("../utils/AppError");
 const bcryptjs = require("bcryptjs");
 const { catchAsync } = require("../utils/catchAsync");
 const jwt = require("jsonwebtoken");
+const { expression } = require("joi");
 
 exports.register = catchAsync(async (req, res, next) => {
   let user = await User.create(req.body);
@@ -25,7 +26,7 @@ exports.login = catchAsync(async (req, res, next) => {
   }
   let user = await User.findOne({ email });
   if (!user) {
-    return next(new AppError(401, "invalid email or password", "fail"));
+    return next(new AppError(401, "user not found", "fail"));
   }
   let isValid = await bcryptjs.compare(password, user.password);
   if (!isValid) {
@@ -35,5 +36,49 @@ exports.login = catchAsync(async (req, res, next) => {
     { id: user._id, email: user.email, role: user.role },
     process.env.JWT_SECRET
   );
-  res.status(200).json({ status: "success", data: token });
+
+  res.status(200).json({ status: "success", token: token });
+});
+
+exports.getUser = catchAsync(async (req, res, next) => {
+  let user = await User.findById(req.id).select("-password -__v"); // Exclude password and __v from the response
+  if (!user) {
+    return next(new AppError(404, "user not found", "fail"));
+  }
+  res.status(200).json({ status: "success", data: user });
+});
+
+exports.updateUser = catchAsync(async (req, res, next) => {
+  let id = req.id;
+  let user = await User.findByIdAndUpdate(id, req.body);
+  if (!user) {
+    return next(new AppError(404, "user not found", "fail"));
+  }
+  res.status(200).json({ status: "success", data: user });
+});
+
+exports.deleteUser = catchAsync(async (req, res, next) => {
+  let id = req.id;
+  let user = await User.findByIdAndDelete(id);
+  if (!user) {
+    return next(new AppError(404, "user not found", "fail"));
+  }
+  res.status(204).json({ status: "success", data: null });
+});
+
+exports.getAllUsers = catchAsync(async (req, res, next) => {
+  let users = await User.find().select("-password -__v"); // Exclude password and __v from the response
+  if (!users || users.length === 0) {
+    return next(new AppError(404, "No users found", "fail"));
+  }
+  res.status(200).json({ status: "success", data: users });
+});
+
+exports.getUserById = catchAsync(async (req, res, next) => {
+  let id = req.id;
+  let user = await User.findById(id).select("-password -__v"); // Exclude password and __v from the response
+  if (!user) {
+    return next(new AppError(404, "user not found", "fail"));
+  }
+  res.status(200).json({ status: "success", data: user });
 });

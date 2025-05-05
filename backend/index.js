@@ -5,7 +5,7 @@ const dotenv = require("dotenv");
 const userRoutes = require("./routes/users");
 const examRoutes = require("./routes/exams");
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
 dotenv.config(); // Load environment variables
 
@@ -25,8 +25,8 @@ mongoose
   });
 
 // routes
-app.use("/user", userRoutes);
-app.use("/exam", examRoutes);
+app.use("/api/user", userRoutes);
+app.use("/api/exam", examRoutes);
 
 // not found page
 app.use((req, res, next) => {
