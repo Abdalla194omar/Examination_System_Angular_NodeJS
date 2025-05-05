@@ -1,17 +1,17 @@
-import { Component } from '@angular/core';
-import { RouterLink,Router } from '@angular/router';
-import {MainLayoutComponent}  from '../../../../layout/main-layout/main-layout/main-layout.component'
+import { Component, EventEmitter, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
 @Component({
   selector: 'app-header',
-  imports: [RouterLink,MainLayoutComponent],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  styleUrls: ['./header.component.css'],
+  standalone: true,
+  imports: [CommonModule]
 })
 export class HeaderComponent {
-  constructor(private router: Router) {}
+  @Output() toggleSidebar = new EventEmitter<void>();
 
-  navigateToAddExam(event: Event) {
-    event.preventDefault(); // Prevent any default Bootstrap behavior
-    this.router.navigate(['/add-exam']);
+  onToggleSidebar() {
+    this.toggleSidebar.emit();
   }
 }

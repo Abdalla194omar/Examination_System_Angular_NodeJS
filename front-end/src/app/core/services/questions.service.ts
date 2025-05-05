@@ -13,19 +13,17 @@ export class QuestionsService {
 
   // Question APIs
   getAllQuestions(examId: string): Observable<any> {
-    return this.http.get(`${environment.apiUrl}/exams/${examId}/questions`);
+    return this.http.get(`${environment.apiUrl}/exams/${examId}/allquestions`);
   }
   createQuestions(examId: string, question: Question): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/exams/${examId}/questions`, question);
+    return this.http.post(`${environment.apiUrl}/exams/${examId}/question`, question);
   }
 
   updateQuestion(examId: string, questionId: string, question: Question): Observable<any> {
-    return this.http.put(`${environment.apiUrl}/exams/${examId}/questions/${questionId}`, question);
+    return this.http.put(`${environment.apiUrl}/exams/${examId}/question/${questionId}`, question);
   }
 
   deleteQuestion(examId: string, questionId: string): Observable<any> {
-    return this.http.delete(`${environment.apiUrl}/exams/${examId}/questions/${questionId}`);
+    return this.http.delete(`${environment.apiUrl}/exams/${examId}/question/${questionId}`);
   }
-  
-  
 }

@@ -1,92 +1,105 @@
-import { Component, signal } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
-// import { Store } from '@ngrx/store';
-// import { loadExam, loadQuestions, submitExam } from '../../store/app.actions';
-// import { selectCurrentExam, selectQuestions, selectSubmissionError, selectSubmissionResult } from '../../store/app.selectors';
-import { toSignal } from '@angular/core/rxjs-interop';
+
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterLink, ActivatedRoute, Router } from '@angular/router';
+import { QuestionsService } from '../../../core/services/questions.service';
+import { ExamService } from './../../../core/services/exam.service';
+import { SubmitResponse } from '../../../shared/models/submit.model';
+
+// Define Question interface for type safety
+interface Question {
+  _id: string;
+  questionDesc: string;
+  choices: string[];
+  score: number;
+}
 
 @Component({
   selector: 'app-take-exam',
-  standalone: true,
-  imports: [ReactiveFormsModule],
   templateUrl: './take-exam.component.html',
   styleUrls: ['./take-exam.component.css'],
+  standalone: true,
+  imports: [CommonModule, FormsModule, RouterLink]
 })
-export class TakeExamComponent {
-  examId = signal<string>('');
-  exam = '';
-  questions=[]
-  // exam = this.store.selectSignal(selectCurrentExam);
-  // questions = this.store.selectSignal(selectQuestions);
-  examForm: FormGroup;
-  // error = this.store.selectSignal(selectSubmissionError);
-  // success = this.store.selectSignal(selectSubmissionResult);
+export class TakeExamComponent implements OnInit {
+  questions: Question[] = [];
+  answers: SubmitResponse[] = [];
+  successMessage: string | null = null;
+  errorMessage: string | null = null;
+  examId: string | null = null;
+  isSubmitting = false; // Prevent multiple submissions
 
   constructor(
     private route: ActivatedRoute,
-    private fb: FormBuilder,
-    // private store: Store,
-    private router: Router
-  ) {
-    this.examId.set(this.route.snapshot.paramMap.get('examId') || '');
-    this.examForm = this.fb.group({
-      answers: this.fb.array([]),
-    });
+    private router: Router,
+    private questionsService: QuestionsService,
+    private examService: ExamService
+  ) {}
 
-    // this.store.dispatch(loadExam({ examId: this.examId() }));
-    // this.store.dispatch(loadQuestions({ examId: this.examId() }));
-
-    // this.questions.subscribe(questions => {
-      // this.answers.clear();
-      // questions.forEach((question, index) => {
-      //   this.answers.push(
-      //     this.fb.group({
-      //       questionId: [question._id, Validators.required],
-      //       answer: question.isMultiple ? this.fb.array([]) : ['', Validators.required],
-      //     })
-      //   );
-      // });
-    // });
-
-    // this.success.subscribe(result => {
-    //   if (result) {
-    //     this.router.navigate(['/results']);
-    //   }
-    // });
-  }
-
-  get answers() {
-    return this.examForm.get('answers') as FormArray;
-  }
-
-  getAnswerArray(index: number) {
-    return this.answers.at(index).get('answer') as FormArray;
-  }
-
-  onCheckboxChange(event: Event, index: number, choice: string) {
-    const answerArray = this.getAnswerArray(index);
-    const isChecked = (event.target as HTMLInputElement).checked;
-    if (isChecked) {
-      answerArray.push(new FormControl(choice));
+  ngOnInit() {
+    this.examId = this.route.snapshot.paramMap.get('examId');
+    if (this.examId) {
+      console.log('Fetching questions for examId:', this.examId);
+      this.questionsService.getAllQuestions(this.examId).subscribe({
+        next: (questions) => {
+          console.log('Questions received:', questions);
+          this.questions = questions.data;
+          // Initialize answers with questionId and empty answer
+          this.answers = this.questions.map(q => ({ questionId: q._id, answer: '' }));
+        },
+        error: (err) => {
+          console.error('Error fetching questions:', err);
+          this.errorMessage = 'Error to load data';
+        }
+      });
     } else {
-      const idx = answerArray.controls.findIndex(control => control.value === choice);
-      answerArray.removeAt(idx);
+      console.log('No examId found in route');
+      this.errorMessage = 'Exam not exists';
     }
   }
 
   onSubmit() {
-    if (this.examForm.invalid) {
-      this.examForm.markAllAsTouched();
+    // Validate all questions are answered
+    if (this.answers.some(answer => !answer.answer.trim())) {
+      this.errorMessage = 'Must Answer All Questions';
+      this.successMessage = null;
       return;
     }
 
-    const answers = this.examForm.value.answers.map((answer: any) => ({
-      questionId: answer.questionId,
-      answer: answer.answer,
-    }));
+    if (this.isSubmitting) return;
+    this.isSubmitting = true;
 
-    // this.store.dispatch(submitExam({ examId: this.examId(), answers }));
+    console.log('Payload being sent to backend:', { answers: this.answers });
+
+  if (this.examId) {
+    this.examService.submitAnswers(this.examId, this.answers).subscribe({
+      next: (response) => {
+        console.log('Submission response:', response);
+        const total = this.questions.reduce((sum, q) => sum + q.score, 0);
+        const score = response.result?.score ?? 0;
+        const examId = response.result?.examId ?? this.examId;
+        this.router.navigate(['/results'], {
+            queryParams: {
+              score: score,
+              total: total,
+              message: response.message || 'Send Successfully',
+              examId: examId
+            }
+          });
+          this.isSubmitting = false;
+        },
+        error: (err) => {
+          console.error('Error submitting answers:', err);
+          this.errorMessage = err.error?.message || 'Error yo send exam';
+          this.successMessage = null;
+          this.isSubmitting = false;
+        }
+      });
+    } else {
+      this.errorMessage = 'Error';
+      this.successMessage = null;
+      this.isSubmitting = false;
+    }
   }
 }

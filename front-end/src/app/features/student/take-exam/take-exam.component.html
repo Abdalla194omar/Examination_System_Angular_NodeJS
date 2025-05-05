@@ -1,68 +1,66 @@
-<div class="container mt-5">
-  <!-- @if (exam()) { -->
-    <h1 class="display-6 mb-4"></h1>
-    <p class="lead mb-4"></p>
-    <p><strong>Deadline:</strong></p>
-  <!-- } -->
+```html
+<section class="container py-5">
+  <h2 class="text-center text-primary-emphasis mb-4">Take Exam</h2>
 
-  <!-- @if (questions().length === 0) {
-    <p>No questions available for this exam.</p>
-  } @else { -->
-    <form [formGroup]="examForm" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
-      <!-- @for (question of questions(); track question._id; let i = $index) { -->
-        <div class="card mb-3">
-          <div class="card-body">
-            <h5 class="card-title"></h5>
-            <!-- <div [formGroup]="answers.at(i)">
-              @if (question.isMultiple) {
-                <div formArrayName="answer">
-                  @for (choice of question.choices; track choice; let j = $index) {
-                    <div class="form-check">
-                      <input
-                        type="checkbox"
-                        [id]="'answer-' + i + '-' + j"
-                        class="form-check-input"
-                        [value]="choice"
-                        (change)="onCheckboxChange($event, i, choice)"
-                      />
-                      <label [for]="'answer-' + i + '-' + j" class="form-check-label">{{ choice }}</label>
-                    </div>
-                  }
-                </div>
-              } @else {
-                <div formControlName="answer">
-                  @for (choice of question.choices; track choice; let j = $index) {
-                    <div class="form-check">
-                      <input
-                        type="radio"
-                        [id]="'answer-' + i + '-' + j"
-                        class="form-check-input"
-                        [value]="choice"
-                        formControlName="answer"
-                        required
-                      />
-                      <label [for]="'answer-' + i + '-' + j" class="form-check-label">{{ choice }}</label>
-                    </div>
-                  }
-                </div>
-              }
-            </div> -->
+  <!-- Success/Error Messages -->
+  @if (successMessage) {
+    <div class="alert alert-success" role="alert">
+      {{ successMessage }}
+    </div>
+  }
+  @if (errorMessage) {
+    <div class="alert alert-danger" role="alert">
+      {{ errorMessage }}
+    </div>
+  }
+
+  <!-- Exam Form -->
+  <form (ngSubmit)="onSubmit()" class="card shadow-sm p-4">
+    <!-- Questions List -->
+    @if (questions.length > 0) {
+      @for (question of questions; track question._id; let qIndex = $index) {
+        <div class="mb-4">
+          <!-- Question Description -->
+          <h5 class="fw-semibold">{{ qIndex + 1 }}. {{ question.questionDesc }}</h5>
+          <small class="text-muted">Points: {{ question.score }}</small>
+
+          <!-- Answer Choices -->
+          <div class="mt-2">
+            @for (choice of question.choices; track choice; let cIndex = $index) {
+              <div class="form-check">
+                <input
+                  type="radio"
+                  class="form-check-input"
+                  [id]="'answer-' + qIndex + '-' + cIndex"
+                  [name]="'question-' + qIndex"
+                  [value]="choice"
+                  [(ngModel)]="answers[qIndex].answer"
+                  required
+                />
+                <label class="form-check-label" [for]="'answer-' + qIndex + '-' + cIndex">
+                  {{ choice }}
+                </label>
+              </div>
+            }
           </div>
         </div>
-      <!-- } -->
-
-      <!-- @if (error()) {
-        <div class="alert alert-danger" role="alert">
-          {{ error() }}
-        </div>
       }
-      @if (success()) {
-        <div class="alert alert-success" role="alert">
-          {{ success() }}
-        </div>
-      } -->
+    } @else {
+      <div class="text-center text-muted">
+        No questions available for this exam.
+      </div>
+    }
 
-      <button type="submit" class="btn btn-danger text-white w-100">Submit Exam</button>
-    </form>
-  <!-- } -->
-</div>
+    <!-- Submit Button -->
+    <div class="d-flex justify-content-end">
+      <button
+        type="submit"
+        class="btn btn-primary me-2"
+        [disabled]="!questions.length || isSubmitting"
+      >
+        {{ isSubmitting ? 'Sending...' : 'Send Exam'}}
+      </button>
+      <a routerLink="/exams" class="btn btn-secondary">Cancel</a>
+    </div>
+  </form>
+</section>

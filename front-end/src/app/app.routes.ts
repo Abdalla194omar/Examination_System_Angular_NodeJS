@@ -1,11 +1,10 @@
-// import { AddQuestionsComponent } from './features/admin/add-questions/add-questions.component';
+import { AddQuestionsComponent } from './features/admin/add-questions/add-questions.component';
 import { Routes } from '@angular/router';
-import { AddExamComponent } from './features/admin/add-exam/add-exam.component';
 import { TakeExamComponent } from './features/student/take-exam/take-exam.component';
+import { ResultsComponent } from './features/student/results/results.component';
 export const routes: Routes = [
-  // {path:'add-exam',component:AddExamComponent}
-  { path: 'add-exam', component: AddExamComponent },
-  // { path: 'add-questions/:examId', component: AddQuestionsComponent },
-  { path: 'take-exam', component: TakeExamComponent }
+  { path: 'exams/:examId/question', component: AddQuestionsComponent },
+  { path: 'exams/:examId/allquestions', component: TakeExamComponent },
+  { path: 'results', component: ResultsComponent },
 
 ];

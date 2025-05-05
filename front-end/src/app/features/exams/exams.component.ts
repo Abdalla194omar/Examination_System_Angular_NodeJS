@@ -5,7 +5,7 @@ import { Exam } from '../../shared/models/exam.model';
 import { Router, RouterLink } from '@angular/router';
 @Component({
   selector: 'app-exams',
-  imports: [CommonModule],
+  imports: [CommonModule,RouterLink],
   templateUrl: './exams.component.html',
   styleUrl: './exams.component.css'
 })
@@ -27,7 +27,7 @@ export class ExamsComponent implements OnInit {
     this.examService.getExams().subscribe({
       next: (response) => {
         console.log("Exams", response);
-        this.exams = response.data; // Updated to use `response.data`
+        this.exams = response.data; 
       },
       error: (error) => {
         this.errorMessage =
