@@ -8,6 +8,7 @@ import { Result } from '../../shared/models/results.model';
   providedIn: 'root'
 })
 export class ResultsService {
+<<<<<<< HEAD
   private apiUrl = environment.apiUrl;
   constructor(private http: HttpClient) {}
 
@@ -17,4 +18,9 @@ export class ResultsService {
   getUserResults(userId: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/student/results`);
   }
+=======
+
+  constructor(private http: HttpClient) {}
+
+>>>>>>> 0a7a7322cda4d7659743b828b581daeebe7abcfc
 }

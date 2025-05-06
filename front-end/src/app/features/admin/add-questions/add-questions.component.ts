@@ -15,7 +15,10 @@ import { Question } from '../../../shared/models/question.model';
 export class AddQuestionsComponent {
   examId: string = '';
   question: Question = {
+<<<<<<< HEAD
     _id:'',
+=======
+>>>>>>> 0a7a7322cda4d7659743b828b581daeebe7abcfc
     examId: '', 
     questionDesc: '',
     choices: ['', '', '', ''], 
@@ -72,11 +75,18 @@ export class AddQuestionsComponent {
         this.errorMessage = null;
         // Reset the form
         this.question = {
+<<<<<<< HEAD
           _id:'',
+=======
+>>>>>>> 0a7a7322cda4d7659743b828b581daeebe7abcfc
           examId: this.examId,
           questionDesc: '',
           choices: ['', '', '', ''],
           answer:'',
+<<<<<<< HEAD
+=======
+          
+>>>>>>> 0a7a7322cda4d7659743b828b581daeebe7abcfc
           score: 1,
         };
       },

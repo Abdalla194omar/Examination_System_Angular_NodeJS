@@ -10,6 +10,7 @@ const AppError = require('../utlis/AppError');
 
 // get  admin/allResults ->admin
 exports.getAllResults=catchAsync(async (req,res,next)=>{
+<<<<<<< HEAD
     // const userId = req.id
     // if (!mongoose.Types.ObjectId.isValid(userId)) {
     //         return next(new AppError(400, 'Invalid User ID format'));
@@ -21,6 +22,19 @@ exports.getAllResults=catchAsync(async (req,res,next)=>{
     // if (userExists.role !== 'admin') {
     //     return next(new AppError(403, 'Only admins can view all results'));
     // }
+=======
+    const userId = req.id
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+            return next(new AppError(400, 'Invalid User ID format'));
+    }
+    const userExists = await usersModel.findById(userId);
+    if (!userExists) {
+        return next(new AppError(404, 'User not found'));
+    }
+    if (userExists.role !== 'admin') {
+        return next(new AppError(403, 'Only admins can view all results'));
+      }
+>>>>>>> 0a7a7322cda4d7659743b828b581daeebe7abcfc
     const results = await resultsModel.find().populate('examId');
     res.status(200).json({ message: 'Success get all results', data: results });
 });
@@ -60,6 +74,7 @@ exports.getUserResults = catchAsync(async (req, res, next) => {
           questionId: answer.questionId._id,
           questionDesc: answer.questionId.questionDesc,
           studentAnswer: answer.answer,
+<<<<<<< HEAD
           
           correctAnswer: answer.questionId.answer,
           isCorrect: answer.answer === answer.questionId.answer
@@ -69,6 +84,15 @@ exports.getUserResults = catchAsync(async (req, res, next) => {
           ...result.toObject(),
           answers: answersWithFeedback,
           score
+=======
+          correctAnswer: answer.questionId.answer,
+          isCorrect: answer.answer === answer.questionId.answer
+        }));
+  
+        return {
+          ...result.toObject(),
+          answers: answersWithFeedback
+>>>>>>> 0a7a7322cda4d7659743b828b581daeebe7abcfc
         };
       });
   

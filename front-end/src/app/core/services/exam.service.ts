@@ -18,6 +18,7 @@ export class ExamService {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
+<<<<<<< HEAD
     const payload = { examId, answers };
     return this.http.post<any>(`${this.apiUrl}/exams/${examId}/submit`, payload,{headers})
   }
@@ -25,3 +26,11 @@ export class ExamService {
 
 
 }
+=======
+    return this.http.post<any>(`${this.apiUrl}/exams/${examId}/submit`, {answers},{headers})
+  }
+
+ 
+
+}
+>>>>>>> 0a7a7322cda4d7659743b828b581daeebe7abcfc

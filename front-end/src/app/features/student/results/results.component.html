@@ -13,7 +13,11 @@
         You scored {{ score }} out of {{ total }} points.
         {{ score && total && score >= total * 0.7 ? 'Great job!' : 'Keep practicing!' }}
       </p>
+<<<<<<< HEAD
       <a [routerLink]="['/take-exam', route.snapshot.queryParams['examId']]" class="btn btn-primary me-2">Take Exam Again</a>
+=======
+      <a [routerLink]="['/take-exam', route.snapshot.queryParams['examId']]" class="btn btn-primary me-2">Take Another Exam</a>
+>>>>>>> 0a7a7322cda4d7659743b828b581daeebe7abcfc
       <a [routerLink]="['/exams']" class="btn btn-secondary">Back to Exams</a>
     </div>
   </div>

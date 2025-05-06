@@ -4,7 +4,11 @@ const app = express();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const multer  = require('multer');
+<<<<<<< HEAD
 const cors = require('cors');
+=======
+// const cors = require('cors');
+>>>>>>> 0a7a7322cda4d7659743b828b581daeebe7abcfc
 const examsRoutes = require('./routes/exams');
 const questionsRoutes = require('./routes/questions');
 const resultsRoutes = require('./routes/results');
@@ -14,7 +18,11 @@ const port = 3000;
 
 dotenv.config();
 
+<<<<<<< HEAD
 app.use(cors({ origin: 'http://localhost:4200' }));
+=======
+// app.use(cors({ origin: 'http://localhost:4200' }));
+>>>>>>> 0a7a7322cda4d7659743b828b581daeebe7abcfc
 // Middleware
 app.use(express.json());
 
@@ -41,7 +49,11 @@ app.set('views', './views'); // Set the views directory
 // Routes
 
 app.use('/api', examsRoutes);
+<<<<<<< HEAD
 app.use('/api', questionsRoutes);
+=======
+app.use('/api/exams', questionsRoutes);
+>>>>>>> 0a7a7322cda4d7659743b828b581daeebe7abcfc
 app.use('/api', resultsRoutes);
 // app.use('/api', examsRoutes);
 app.use('/api/users', usersRoutes);

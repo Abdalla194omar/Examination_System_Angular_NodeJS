@@ -45,12 +45,17 @@ const questionSchema = Joi.object({
   answer: Joi.string()
     .trim()
     .required()
+<<<<<<< HEAD
     .custom(answerMustBeInChoices, 'Answer must be of the choices')
+=======
+    .custom(answerMustBeInChoices, 'Answer must be one of the choices')
+>>>>>>> 0a7a7322cda4d7659743b828b581daeebe7abcfc
     .messages({
       'string.empty': 'Answer is required',
       'any.required': 'Answer is required',
       'answer.invalid': 'Answer must be one of the provided choices',
     }),
+<<<<<<< HEAD
   //   answer: Joi.array()
   //   // .items(Joi.string().valid(...Joi.ref('choices'))) 
   //   .items(Joi.string()) 
@@ -67,6 +72,8 @@ const questionSchema = Joi.object({
   //     'answer.invalid': 'Answer must be one of the provided choices',
   //   }),
   // isMultiple: Joi.boolean().required(),
+=======
+>>>>>>> 0a7a7322cda4d7659743b828b581daeebe7abcfc
   score: Joi.number()
     .min(1)
     .required()

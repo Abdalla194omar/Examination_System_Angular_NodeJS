@@ -1,5 +1,6 @@
 <div class="d-flex">
   <!-- Sidebar -->
+<<<<<<< HEAD
   <nav id="sidebarMenu" class="bg-danger text-white shadow-lg " [ngClass]="{'collapsed': isSidebarCollapsed}" style="min-height: 100vh; transition: width 0.3s;">
     <div class="position-sticky ">
       <div class="list-group list-group-flush mx-3 mt-4">
@@ -17,18 +18,48 @@
         </a>
         <a href="#" class="list-group-item list-group-item-action py-2 my-2 rounded text-white" routerLinkActive="active bg-white text-danger">
           <i class="bi bi-box-arrow-right me-3"></i><span class="fs-6 fw-semibold">Logout</span>
+=======
+  <nav id="sidebarMenu" class="sidebar bg-blue text-white shadow-lg" [ngClass]="{'collapsed': isSidebarCollapsed}" style="min-height: 100vh; transition: width 0.3s;">
+    <div class="position-sticky">
+      <div class="list-group list-group-flush mx-3 mt-4">
+        <a href="#" class="list-group-item list-group-item-action py-2 my-2 rounded active">
+          <i class="fas fa-home fa-fw me-3"></i><span class="fs-6 fw-semibold">Home</span>
+        </a>
+        <a [routerLink]="['exams', '681025a454d988c710da50ae', 'allquestions']" class="list-group-item list-group-item-action py-2 my-2 rounded">
+          <i class="fas fa-id-badge fa-fw me-3"></i><span class="fs-6 fw-semibold">Take Exam</span>
+        </a>
+        <a [routerLink]="['add-questions']" class="list-group-item list-group-item-action py-2 my-2 rounded">
+          <i class="fas fa-id-badge fa-fw me-3"></i><span class="fs-6 fw-semibold">Add Exam</span>
+        </a>
+        <!-- <a [routerLink]="['exams', '681025a454d988c710da50ae', 'question']" class="list-group-item list-group-item-action py-2 my-2 rounded">
+          <i class="fas fa-id-badge fa-fw me-3"></i><span class="fs-6 fw-semibold">Add Question</span>
+        </a> -->
+        <a href="#" class="list-group-item list-group-item-action py-2 my-2 rounded">
+          <i class="fas fa-id-badge fa-fw me-3"></i><span class="fs-6 fw-semibold">Profile</span>
+        </a>
+        <a href="#" class="list-group-item list-group-item-action py-2 my-2 rounded">
+          <i class="fas fa-sign-out-alt fa-fw me-3"></i><span class="fs-6 fw-semibold">Logout</span>
+>>>>>>> 0a7a7322cda4d7659743b828b581daeebe7abcfc
         </a>
       </div>
     </div>
   </nav>
 
   <!-- Main Content -->
+<<<<<<< HEAD
   <div class="flex-grow-1 bg-light">
+=======
+  <div class="flex-grow-1">
+>>>>>>> 0a7a7322cda4d7659743b828b581daeebe7abcfc
     <!-- Header -->
     <app-header (toggleSidebar)="toggleSidebar()"></app-header>
 
     <!-- Content -->
+<<<<<<< HEAD
     <div class="content-area " [ngClass]="{'content-expanded': isSidebarCollapsed}">
+=======
+    <div class="content-area" [ngClass]="{'content-expanded': isSidebarCollapsed}">
+>>>>>>> 0a7a7322cda4d7659743b828b581daeebe7abcfc
       <router-outlet></router-outlet>
     </div>
   </div>

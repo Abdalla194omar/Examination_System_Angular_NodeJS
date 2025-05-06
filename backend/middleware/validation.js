@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 
 exports.validation = (schema) => {
@@ -47,3 +48,17 @@ exports.validation = (schema) => {
 //       .min(1)
 //       .required()
 // });
+=======
+exports.validation =(schema)=>{
+    return (req,res,next)=>{
+        let validData = schema.validate({...req.body},{abortEarly:false})
+        if (validData.error) {
+            return res.status(400).json({ error: validData.error.details });
+            } else {
+                req.body = validData.value;
+                // req.validatedBody = validData.value;
+                next();
+            };
+    }
+}
+>>>>>>> 0a7a7322cda4d7659743b828b581daeebe7abcfc

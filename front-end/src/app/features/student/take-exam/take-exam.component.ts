@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0a7a7322cda4d7659743b828b581daeebe7abcfc
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -27,8 +31,12 @@ export class TakeExamComponent implements OnInit {
   successMessage: string | null = null;
   errorMessage: string | null = null;
   examId: string | null = null;
+<<<<<<< HEAD
   isSubmitting = false;
   userRole: string = 'admin';
+=======
+  isSubmitting = false; // Prevent multiple submissions
+>>>>>>> 0a7a7322cda4d7659743b828b581daeebe7abcfc
 
   constructor(
     private route: ActivatedRoute,
@@ -67,6 +75,7 @@ export class TakeExamComponent implements OnInit {
       return;
     }
 
+<<<<<<< HEAD
     // if (this.isSubmitting) return;
     // this.isSubmitting = true;
 
@@ -80,6 +89,21 @@ export class TakeExamComponent implements OnInit {
           const score = response.result?.score ?? 0;
           const examId = response.result?.examId ?? this.examId;
           this.router.navigate(['/results'], {
+=======
+    if (this.isSubmitting) return;
+    this.isSubmitting = true;
+
+    console.log('Payload being sent to backend:', { answers: this.answers });
+
+  if (this.examId) {
+    this.examService.submitAnswers(this.examId, this.answers).subscribe({
+      next: (response) => {
+        console.log('Submission response:', response);
+        const total = this.questions.reduce((sum, q) => sum + q.score, 0);
+        const score = response.result?.score ?? 0;
+        const examId = response.result?.examId ?? this.examId;
+        this.router.navigate(['/results'], {
+>>>>>>> 0a7a7322cda4d7659743b828b581daeebe7abcfc
             queryParams: {
               score: score,
               total: total,
@@ -91,7 +115,11 @@ export class TakeExamComponent implements OnInit {
         },
         error: (err) => {
           console.error('Error submitting answers:', err);
+<<<<<<< HEAD
           this.errorMessage = err.error?.message || 'Error to send exam';
+=======
+          this.errorMessage = err.error?.message || 'Error yo send exam';
+>>>>>>> 0a7a7322cda4d7659743b828b581daeebe7abcfc
           this.successMessage = null;
           this.isSubmitting = false;
         }
@@ -99,6 +127,7 @@ export class TakeExamComponent implements OnInit {
     } else {
       this.errorMessage = 'Error';
       this.successMessage = null;
+<<<<<<< HEAD
       // this.isSubmitting = false;
     }
   }
@@ -133,6 +162,9 @@ export class TakeExamComponent implements OnInit {
           this.successMessage = null;
         }
       });
+=======
+      this.isSubmitting = false;
+>>>>>>> 0a7a7322cda4d7659743b828b581daeebe7abcfc
     }
   }
 }
