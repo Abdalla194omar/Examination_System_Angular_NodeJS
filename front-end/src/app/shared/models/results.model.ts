@@ -1,9 +1,8 @@
-import { User } from "./user.model";
-import { Exam } from "./exam.model";
+// import { User } from "./user.model";
+// import { Exam } from "./exam.model";
 
 export interface Result {
   
-<<<<<<< HEAD
   // examId?: Exam;
   // // userId: User;
   // _id:string,
@@ -12,7 +11,7 @@ export interface Result {
   // createdAt?: string;
   // updatedAt?: string;
   _id: string;
-  userId:User;
+  // userId:User;
   examId: {
     _id: string;
     title?: string; // Populated from Exam model
@@ -32,13 +31,5 @@ export interface Answer {
     answer: string[]; // Populated correct answer from Question model
   };
   userAnswer: string;
-=======
-  examId?: Exam;
-  // userId: User;
-  answers: { questionId: string; answer: string | string[] }[];
-  score: number;
-  createdAt?: string;
-  updatedAt?: string;
->>>>>>> 0a7a7322cda4d7659743b828b581daeebe7abcfc
 }
 

@@ -1,11 +1,10 @@
-<<<<<<< HEAD
 <section class="container py-5">
   @if (userRole === 'student') {
-  <h2 class="text-center text-primary-emphasis mb-4" style="background: linear-gradient(90deg, #1e3c72, #2a5298); -webkit-background-clip: text; color: transparent; font-weight: 700; text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);">
+  <h2 class="text-center text-primary-emphasis mb-4" style="background: linear-gradient(90deg, #1e3c72, #2a5298);  color: transparent; font-weight: 700; text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);">
     Take Your Exam
   </h2>
   }@else {
-    <h2 class="text-center text-primary-emphasis mb-4" style="background: linear-gradient(90deg, #1e3c72, #2a5298); -webkit-background-clip: text; color: transparent; font-weight: 700; text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);">
+    <h2 class="text-center text-primary-emphasis mb-4" style="background: linear-gradient(90deg, #1e3c72, #2a5298);   color: transparent; font-weight: 700; text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);">
       Edit Exam
     </h2>
   }
@@ -20,26 +19,10 @@
     <div class="alert alert-danger alert-dismissible fade show text-center mb-4" role="alert">
       {{ errorMessage }}
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-=======
-```html
-<section class="container py-5">
-  <h2 class="text-center text-primary-emphasis mb-4">Take Exam</h2>
-
-  <!-- Success/Error Messages -->
-  @if (successMessage) {
-    <div class="alert alert-success" role="alert">
-      {{ successMessage }}
-    </div>
-  }
-  @if (errorMessage) {
-    <div class="alert alert-danger" role="alert">
-      {{ errorMessage }}
->>>>>>> 0a7a7322cda4d7659743b828b581daeebe7abcfc
     </div>
   }
 
   <!-- Exam Form -->
-<<<<<<< HEAD
   <div class="card bg-light shadow-lg rounded-4 overflow-hidden" style="border: 1px solid #e0e0e0;">
     <div class="card-body p-4">
       <form (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
@@ -127,54 +110,3 @@
     </div>
   </div>
 </section>
-=======
-  <form (ngSubmit)="onSubmit()" class="card shadow-sm p-4">
-    <!-- Questions List -->
-    @if (questions.length > 0) {
-      @for (question of questions; track question._id; let qIndex = $index) {
-        <div class="mb-4">
-          <!-- Question Description -->
-          <h5 class="fw-semibold">{{ qIndex + 1 }}. {{ question.questionDesc }}</h5>
-          <small class="text-muted">Points: {{ question.score }}</small>
-
-          <!-- Answer Choices -->
-          <div class="mt-2">
-            @for (choice of question.choices; track choice; let cIndex = $index) {
-              <div class="form-check">
-                <input
-                  type="radio"
-                  class="form-check-input"
-                  [id]="'answer-' + qIndex + '-' + cIndex"
-                  [name]="'question-' + qIndex"
-                  [value]="choice"
-                  [(ngModel)]="answers[qIndex].answer"
-                  required
-                />
-                <label class="form-check-label" [for]="'answer-' + qIndex + '-' + cIndex">
-                  {{ choice }}
-                </label>
-              </div>
-            }
-          </div>
-        </div>
-      }
-    } @else {
-      <div class="text-center text-muted">
-        No questions available for this exam.
-      </div>
-    }
-
-    <!-- Submit Button -->
-    <div class="d-flex justify-content-end">
-      <button
-        type="submit"
-        class="btn btn-primary me-2"
-        [disabled]="!questions.length || isSubmitting"
-      >
-        {{ isSubmitting ? 'Sending...' : 'Send Exam'}}
-      </button>
-      <a routerLink="/exams" class="btn btn-secondary">Cancel</a>
-    </div>
-  </form>
-</section>
->>>>>>> 0a7a7322cda4d7659743b828b581daeebe7abcfc

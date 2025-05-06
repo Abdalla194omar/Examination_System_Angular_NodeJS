@@ -2,25 +2,19 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../enviroments/environment';
-import { Result } from '../../shared/models/results.model';
+// import { Result } from '../../shared/models/results.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ResultsService {
-<<<<<<< HEAD
   private apiUrl = environment.apiUrl;
   constructor(private http: HttpClient) {}
 
   getAllResults(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/admin/results`);
+    return this.http.get(`${this.apiUrl}/result/admin`);
   }
   getUserResults(userId: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/student/results`);
+    return this.http.get(`${this.apiUrl}/result/student`);
   }
-=======
-
-  constructor(private http: HttpClient) {}
-
->>>>>>> 0a7a7322cda4d7659743b828b581daeebe7abcfc
 }
