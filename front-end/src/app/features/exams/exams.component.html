@@ -1,0 +1,39 @@
+<!-- <section style="background-color: #eee; margin-top: 4rem; padding: 0 4rem 0"> -->
+  <section class="container py-5 mx-4">
+    <h2 class="text-center text-decoration-underline text-danger">Exams</h2>
+
+    <div class="row">
+      @for (exam of exams; track $index) {
+        <div class="col-md-4">
+          <div class="card border-0 shadow-sm mb-4" >
+            <div class="bg-image hover-overlay" data-mdb-ripple-init data-mdb-ripple-color="light">
+              <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/111.webp" class="img-fluid"/>
+              <a href="#!">
+                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15)"></div>
+              </a>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">{{ exam.title || "Card title" }}</h4>
+              <p class="card-text">
+                {{ exam.description || "Some quick example text to build on the card title and make up the bulk of the card's content." }}
+              </p>
+              <p class="card-text">
+                <strong>Created:</strong> {{ exam.createdAt ? (exam.createdAt | date: 'medium') : 'N/A' }}
+              </p>
+              <p class="card-text">
+                <strong>Updated:</strong> {{ exam.updatedAt ? (exam.updatedAt | date: 'medium') : 'N/A' }}
+              </p>
+              <span ><a class="btn bg-danger text-light" [routerLink]="['/exams', '681025a454d988c710da50ae', 'question']" data-mdb-ripple-init>Add Question</a></span>
+              <span class="ms-5"><a [routerLink]="['/exams', '681025a454d988c710da50ae', 'allquestions']" class="btn bg-light text-danger" data-mdb-ripple-init>View Exam</a></span>
+              
+            </div>
+          </div>
+        </div>
+      } @empty {
+        <div class="col-12 text-center">
+          <p class="text-muted">No exams found.</p>
+        </div>
+      }
+    </div>
+  </section>
+<!-- </section> -->
