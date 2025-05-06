@@ -25,7 +25,6 @@ export class ExamsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    console.log('ngOnInit called');
     if (!this.isInitialized) {
       this.loadExams();
       this.isInitialized = true;

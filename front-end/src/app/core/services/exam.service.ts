@@ -14,7 +14,6 @@ export class ExamService {
   constructor(private http: HttpClient) {}
 
   getExams(): Observable<any> {
-    console.log('Fetching exams from API...');
     return this.http.get(`${this.apiUrl}/exam/`).pipe(
       map((response) => {
         console.log('Raw API response:', response);

@@ -17,7 +17,6 @@ export class UserService {
 
   // Update the current user's data (admin only)
   updateUser(data: { username: string; email: string }): Observable<any> {
-    console.log('ssssss', data);
     return this.http.patch(`${environment.apiUrl}/user/update`, data);
   }
 

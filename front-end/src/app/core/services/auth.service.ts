@@ -58,11 +58,6 @@ export class AuthService {
     return this.isLoggedInSubject.asObservable();
   }
 
-  // Method to check if the user is logged in
-  // isLoggedIn(): boolean {
-  //   return !!this.getToken();
-  // }
-
   isLoggedIn(): boolean {
     return this.isLoggedInSubject.value;
   }
