@@ -1,11 +1,22 @@
 import { Component } from '@angular/core';
-
+import { RouterLink, Router } from '@angular/router';
+import { MainLayoutComponent } from '../../../../layout/main-layout/main-layout/main-layout.component';
+import { AuthService } from '../../../../core/services/auth.service';
 @Component({
   selector: 'app-header',
-  imports: [],
+  imports: [RouterLink, MainLayoutComponent],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  styleUrl: './header.component.css',
 })
 export class HeaderComponent {
+  constructor(private router: Router, private authService: AuthService) {}
 
+  navigateToAddExam(event: Event) {
+    event.preventDefault(); // Prevent any default Bootstrap behavior
+    this.router.navigate(['/add-exam']);
+  }
+
+  onLogout(): void {
+    this.authService.logout(); // Call the logout method from AuthService
+  }
 }
