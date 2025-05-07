@@ -13,6 +13,8 @@ const {
 } = require("../validation/exam.validation");
 const { validation } = require("../middleware/validation");
 const router = express.Router();
+const { submit } = require('../controller/exams');
+const { answerSubmitSchema } = require('../validation/results.validation');
 
 router.post(
   "/createexam",
@@ -31,5 +33,11 @@ router.patch(
   updateExam
 );
 router.delete("/deleteexam/:id", auth, restrictTo("admin"), deleteExam);
+router.post('/:id/submit',auth, restrictTo('student'), validation(answerSubmitSchema),submit);
 
 module.exports = router;
+
+
+
+
+

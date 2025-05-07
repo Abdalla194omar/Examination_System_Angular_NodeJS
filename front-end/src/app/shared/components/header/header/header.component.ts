@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { MainLayoutComponent } from '../../../../layout/main-layout/main-layout/main-layout.component';
 import { AuthService } from '../../../../core/services/auth.service';
@@ -14,6 +14,12 @@ export class HeaderComponent {
   navigateToAddExam(event: Event) {
     event.preventDefault(); // Prevent any default Bootstrap behavior
     this.router.navigate(['/add-exam']);
+  }
+
+  @Output() toggleSidebar = new EventEmitter<void>();
+
+  onToggleSidebar() {
+    this.toggleSidebar.emit();
   }
 
   onLogout(): void {

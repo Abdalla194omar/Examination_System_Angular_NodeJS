@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HeaderComponent } from './shared/components/header/header/header.component';
 import { AuthService } from './core/services/auth.service';
 import { CommonModule } from '@angular/common';
+import { MainLayoutComponent } from './layout/main-layout/main-layout/main-layout.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, CommonModule],
+  imports: [RouterOutlet, MainLayoutComponent, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

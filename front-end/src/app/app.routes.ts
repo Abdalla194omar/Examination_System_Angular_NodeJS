@@ -1,3 +1,4 @@
+import { AddQuestionsComponent } from './features/admin/add-questions/add-questions.component';
 import { Routes } from '@angular/router';
 import { MainLayoutComponent } from './layout/main-layout/main-layout/main-layout.component';
 import { LoginComponent } from './features/auth/login/login.component';
@@ -8,6 +9,10 @@ import { ExamsComponent } from './features/exams/exams.component';
 import { EditExamComponent } from './features/admin/edit-exam/edit-exam.component';
 import { UserProfileComponent } from './users/components/user-profile/user-profile/user-profile.component';
 import { EditProfileComponent } from './users/components/user-profile/edit-profile/edit-profile.component';
+import { EditQuestionComponent } from './features/admin/edit-question/edit-question.component';
+import { TakeExamComponent } from './features/student/take-exam/take-exam.component';
+import { ResultListComponent } from './features/student/result-list/result-list.component';
+import { ResultsComponent } from './features/student/results/results.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -21,28 +26,28 @@ export const routes: Routes = [
       {
         path: 'add-exam',
         component: AddExamComponent,
-        runGuardsAndResolvers: 'always',
       },
       {
         path: 'exams',
         component: ExamsComponent,
-        runGuardsAndResolvers: 'always',
       },
       {
         path: 'edit-exam/:id',
         component: EditExamComponent,
-        runGuardsAndResolvers: 'always',
       },
       {
         path: 'profile',
         component: UserProfileComponent,
-        runGuardsAndResolvers: 'always',
       },
       {
         path: 'edit-profile',
         component: EditProfileComponent,
-        runGuardsAndResolvers: 'always',
       },
+      { path: 'results', component: ResultsComponent },
+      { path: 'result-list', component: ResultListComponent },
+      { path: 'exams/:examId/question', component: AddQuestionsComponent },
+      { path: 'exams/:examId/allquestions', component: TakeExamComponent },
+      { path: 'exams/:examId/question/:id', component: EditQuestionComponent },
     ],
   },
   { path: '**', redirectTo: '/login' },

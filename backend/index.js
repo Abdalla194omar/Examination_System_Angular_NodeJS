@@ -4,14 +4,27 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const userRoutes = require("./routes/users");
 const examRoutes = require("./routes/exams");
+const questionRoutes = require('./routes/questions');
+const resultRoutes = require('./routes/results');
+const AppError = require('./utils/AppError');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-dotenv.config(); // Load environment variables
+
+dotenv.config();
+
+app.use(cors({ origin: 'http://localhost:4200' }));
 
 // Middleware
-app.use(express.json()); // To parse incoming JSON requests
-app.use(cors());
+app.use(express.json());
+
+
+// Routes
+app.use("/api/user", userRoutes);
+app.use("/api/exam", examRoutes);
+app.use('/api/question', questionRoutes);
+app.use('/api/result', resultRoutes);
+
 
 mongoose
   .connect(process.env.MONGO_URI)
@@ -23,15 +36,13 @@ mongoose
   .catch((error) => {
     console.log(error);
   });
-
-// routes
-app.use("/api/user", userRoutes);
-app.use("/api/exam", examRoutes);
-
-// not found page
-app.use((req, res, next) => {
-  next(new AppError(404, "route not found"));
-});
+  
+  
+  // Custom 404 Middleware 
+  app.use((req, res, next) => {
+    next(new AppError(404,'Route not found'))
+    res.status(404).json({ status: "fail", message: "Route not found" });
+  });
 
 //error handling
 app.use((err, req, res, next) => {
