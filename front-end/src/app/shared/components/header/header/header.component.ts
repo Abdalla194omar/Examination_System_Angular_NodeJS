@@ -4,7 +4,7 @@ import { MainLayoutComponent } from '../../../../layout/main-layout/main-layout/
 import { AuthService } from '../../../../core/services/auth.service';
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, MainLayoutComponent],
+  imports: [RouterLink],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })

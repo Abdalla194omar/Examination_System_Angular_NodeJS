@@ -1,8 +1,8 @@
-// import { User } from "./user.model";
 // import { Exam } from "./exam.model";
 
+import { User } from './user.model';
+
 export interface Result {
-  
   // examId?: Exam;
   // // userId: User;
   // _id:string,
@@ -11,7 +11,7 @@ export interface Result {
   // createdAt?: string;
   // updatedAt?: string;
   _id: string;
-  // userId:User;
+  userId: User;
   examId: {
     _id: string;
     title?: string; // Populated from Exam model
@@ -22,7 +22,6 @@ export interface Result {
   submittedAt: string; // Date converted to ISO string by Angular
   createdAt?: string; // From timestamps
   updatedAt?: string; // From timestamps
-
 }
 export interface Answer {
   questionId: {
@@ -32,4 +31,3 @@ export interface Answer {
   };
   userAnswer: string;
 }
-

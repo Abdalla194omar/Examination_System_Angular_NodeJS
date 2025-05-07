@@ -1,9 +1,9 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const { auth,restrictTo } = require('../middleware/auth');
-const {getAllResults,getUserResults} = require('../controller/results');
+const { auth, restrictTo } = require("../middleware/auth");
+const { getAllResults, getUserResults } = require("../controllers/results");
 
-router.get('/admin',auth,restrictTo('admin'),getAllResults);
-router.get('/student',auth,restrictTo('student'),getUserResults);
+router.get("/admin", auth, restrictTo("admin"), getAllResults);
+router.get("/student", auth, restrictTo("student"), getUserResults);
 
 module.exports = router;

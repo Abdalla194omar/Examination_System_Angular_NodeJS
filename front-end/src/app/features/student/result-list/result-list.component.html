@@ -1,10 +1,6 @@
 <section class="container py-5 mx-4">
   <h2 class="text-center text-decoration-underline text-danger">
-    @if (userRole === 'admin') {
-      All Results
-    } @else {
-      My Results
-    }
+    @if (userRole === 'admin') { All Results } @else { My Results }
   </h2>
   <!-- Success/Error Messages -->
   <div *ngIf="successMessage" class="alert alert-success" role="alert">
@@ -15,109 +11,134 @@
   </div>
 
   @if (results.length === 0 && !errorMessage) {
-    <div class="text-gray-500 text-center">
-      No results found.
-    </div>
+  <div class="text-gray-500 text-center">No results found.</div>
   } @else {
-    <table class="table align-middle mb-0 bg-white">
-      <thead class="bg-light">
-        <tr>
-          @if (userRole === 'admin') {
-            <th>Student Name</th>
-          }
-          <th>Exam Title</th>
-          <th>Score</th>
-          <th>Status</th>
-          <th>Submitted At</th>
-          @if (userRole === 'student') {
-            <th>Actions</th>
-          }
-        </tr>
-      </thead>
-      <tbody>
-        @for (result of results; track result._id) {
-          <tr>
-            @if (userRole === 'admin') {
-              <td>
-                <div class="d-flex align-items-center">
-                  <img
-                    src="https://mdbootstrap.com/img/new/avatars/8.jpg"
-                    alt=""
-                    style="width: 45px; height: 45px"
-                    class="rounded-circle"
-                  />
-                  <div class="ms-3">
-                    <p class="fw-bold mb-1">{{ result.userId.name || 'Unknown Student' }}</p>
-                  </div>
-                </div>
-              </td>
-            }
-
-            <td>
-              <p class="fw-normal mb-1">{{ result.examId.title || 'Unknown Exam' }}</p>
-            </td>
-
-            <td>
-              <p class="fw-normal mb-1">{{ result.score }}</p>
-            </td>
-
-            <td>
-              <span
-                class="badge rounded-pill d-inline"
-                [ngClass]="{
-                  'badge-success': result.score >= 70,
-                  'badge-warning': result.score >= 50 && result.score < 70,
-                  'badge-danger': result.score < 50
-                }"
-              >
-                {{ result.score >= 70 ? 'Excellent' : result.score >= 50 ? 'Pass' : 'Fail' }}
-              </span>
-            </td>
-
-            <td>{{ result.submittedAt | date:'medium' }}</td>
-
-            @if (userRole === 'student') {
-              <td>
-                <button
-                  type="button"
-                  class="btn btn-link btn-sm btn-rounded"
-                  (click)="toggleAnswers(result._id)"
-                >
-                  {{ expandedResultId === result._id ? 'Hide Details' : 'View Details' }}
-                </button>
-              </td>
-            }
-          </tr>
-
-          @if (userRole === 'student' && expandedResultId === result._id && result.answers.length) {
-            <tr>
-              <!-- <td colspan="{{ userRole === 'admin' ? 6 : 5 }}" class="p-4 bg-gray-50"> -->
-              <td colspan="6" class="p-4 bg-gray-50">
-                <h3 class="text-md font-medium">Answers:</h3>
-                <ul class="list-disc pl-5">
-                  @for (answer of result.answers; track answer.questionId._id) {
-                    <li>
-                      <span>{{ answer.questionId.questionDesc }}</span><br />
-                      <span>Your Answer: {{ answer.userAnswer }}</span><br />
-                      <span>Correct Answer: {{ answer.questionId.answer.join(', ') }}</span><br />
-                      <span
-                        [class.text-green-500]="answer.userAnswer === answer.questionId.answer[0]"
-                        [class.text-red-500]="answer.userAnswer !== answer.questionId.answer[0]"
-                      >
-                        {{ answer.userAnswer === answer.questionId.answer[0] ? 'Correct' : 'Incorrect' }}
-                      </span>
-                    </li>
-                  }
-                </ul>
-              </td>
-            </tr>
-          }
+  <table class="table align-middle mb-0 bg-white">
+    <thead class="bg-light">
+      <tr>
+        @if (userRole === 'admin') {
+        <th>Student Name</th>
         }
-      </tbody>
-    </table>
+        <th>Exam Title</th>
+        <th>Score</th>
+        <th>Status</th>
+        <th>Submitted At</th>
+        @if (userRole === 'student') {
+        <th>Actions</th>
+        }
+      </tr>
+    </thead>
+    <tbody>
+      @for (result of results; track result._id) {
+      <tr>
+        @if (userRole === 'admin') {
+        <td>
+          <div class="d-flex align-items-center">
+            <img
+              src="https://mdbootstrap.com/img/new/avatars/8.jpg"
+              alt=""
+              style="width: 45px; height: 45px"
+              class="rounded-circle"
+            />
+            <div class="ms-3">
+              <p class="fw-bold mb-1">
+                {{ result.userId.username || "Unknown Student" }}
+              </p>
+            </div>
+          </div>
+        </td>
+        }
+
+        <td>
+          <p class="fw-normal mb-1">
+            {{ result.examId.title || "Unknown Exam" }}
+          </p>
+        </td>
+
+        <td>
+          <p class="fw-normal mb-1">{{ result.score }}</p>
+        </td>
+
+        <td>
+          <span
+            class="badge rounded-pill d-inline"
+            [ngClass]="{
+              'badge-success': result.score >= 70,
+              'badge-warning': result.score >= 50 && result.score < 70,
+              'badge-danger': result.score < 50
+            }"
+          >
+            {{
+              result.score >= 70
+                ? "Excellent"
+                : result.score >= 50
+                ? "Pass"
+                : "Fail"
+            }}
+          </span>
+        </td>
+
+        <td>{{ result.submittedAt | date : "medium" }}</td>
+
+        @if (userRole === 'student') {
+        <td>
+          <button
+            type="button"
+            class="btn btn-link btn-sm btn-rounded"
+            (click)="toggleAnswers(result._id)"
+          >
+            {{
+              expandedResultId === result._id ? "Hide Details" : "View Details"
+            }}
+          </button>
+        </td>
+        }
+      </tr>
+
+      @if (userRole === 'student' && expandedResultId === result._id &&
+      result.answers.length) {
+      <tr>
+        <!-- <td colspan="{{ userRole === 'admin' ? 6 : 5 }}" class="p-4 bg-gray-50"> -->
+        <td colspan="6" class="p-4 bg-gray-50">
+          <h3 class="text-md font-medium">Answers:</h3>
+          <ul class="list-disc pl-5">
+            @for (answer of result.answers; track answer.questionId._id) {
+            <li>
+              <span>{{ answer.questionId.questionDesc }}</span
+              ><br />
+              <span>Your Answer: {{ answer.userAnswer }}</span
+              ><br />
+              <span
+                >Correct Answer: {{ answer.questionId.answer.join(", ") }}</span
+              ><br />
+              <span
+                [class.text-green-500]="
+                  answer.userAnswer === answer.questionId.answer[0]
+                "
+                [class.text-red-500]="
+                  answer.userAnswer !== answer.questionId.answer[0]
+                "
+              >
+                {{
+                  answer.userAnswer === answer.questionId.answer[0]
+                    ? "Correct"
+                    : "Incorrect"
+                }}
+              </span>
+            </li>
+            }
+          </ul>
+        </td>
+      </tr>
+      } }
+    </tbody>
+  </table>
   }
 
-  <a routerLink="/dashboard" class="text-blue-500 hover:underline mt-4 inline-block">
+  <a
+    routerLink="/dashboard"
+    class="text-blue-500 hover:underline mt-4 inline-block"
+  >
     Back to Dashboard
   </a>
 </section>
