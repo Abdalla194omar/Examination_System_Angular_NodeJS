@@ -73,11 +73,19 @@
             <ng-template #takeExam>
               <div class="text-center">
                 <!-- Wrapped in centered div -->
+                <!-- <a
+          [routerLink]="['/exams', '681025a454d988c710da50ae', 'allquestions']"
+          class="list-group-item list-group-item-action py-2 my-2 rounded text-white"
+          routerLinkActive="active bg-white text-danger"
+        >
+          <i class="bi bi-journal-check me-3"></i
+          ><span class="fs-6 fw-semibold">Take Exam</span>
+        </a> -->
                 <button
                   class="btn fw-semibold"
                   style="background-color: #dc3545; color: white"
                   data-mdb-ripple-init
-                  [routerLink]="['/take-exam', exam._id]"
+                  [routerLink]="['/exams', exam._id, 'allquestions']"
                 >
                   <i class="fas fa-play-circle me-1"></i> Start Exam
                 </button>
