@@ -43,13 +43,26 @@
 
           <div class="mt-auto text-center">
             <!-- Added text-center here -->
-            <div
-              *ngIf="authService.isAdmin(); else takeExam"
-              class="d-flex flex-wrap justify-content-center gap-2"
-            >
+
+            @if (!authService.isAdmin()) {
+
+            <div class="text-center">
+              <!-- Wrapped in centered div -->
+              <button
+                class="btn fw-semibold"
+                style="background-color: #dc3545; color: white"
+                data-mdb-ripple-init
+                [routerLink]="['/exams', exam._id, 'allquestions']"
+              >
+                <i class="fas fa-play-circle me-1"></i> Start Exam
+              </button>
+            </div>
+            }@else {
+            <div class="d-flex flex-wrap justify-content-center gap-2">
               <!-- Centered buttons -->
               <button
                 class="btn btn-sm fw-semibold"
+                [routerLink]="['/exams', exam._id, 'allquestions']"
                 style="background-color: #dc3545; color: white"
                 data-mdb-ripple-init
               >
@@ -70,27 +83,8 @@
                 <i class="fas fa-trash-alt me-1"></i> Delete
               </button>
             </div>
-            <ng-template #takeExam>
-              <div class="text-center">
-                <!-- Wrapped in centered div -->
-                <!-- <a
-          [routerLink]="['/exams', '681025a454d988c710da50ae', 'allquestions']"
-          class="list-group-item list-group-item-action py-2 my-2 rounded text-white"
-          routerLinkActive="active bg-white text-danger"
-        >
-          <i class="bi bi-journal-check me-3"></i
-          ><span class="fs-6 fw-semibold">Take Exam</span>
-        </a> -->
-                <button
-                  class="btn fw-semibold"
-                  style="background-color: #dc3545; color: white"
-                  data-mdb-ripple-init
-                  [routerLink]="['/exams', exam._id, 'allquestions']"
-                >
-                  <i class="fas fa-play-circle me-1"></i> Start Exam
-                </button>
-              </div>
-            </ng-template>
+
+            }
           </div>
         </div>
       </div>

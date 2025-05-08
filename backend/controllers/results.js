@@ -1,29 +1,12 @@
 const mongoose = require("mongoose");
-const resultsModel = require("../Models/results");
+const resultsModel = require("../models/results");
 const { catchAsync } = require("../utils/catchAsync");
 const AppError = require("../utils/AppError");
 const User = require("../models/user");
 
 // get admin/allResults -> admin
 exports.getAllResults = catchAsync(async (req, res, next) => {
-  const userId = req.id;
-  if (!mongoose.Types.ObjectId.isValid(userId)) {
-    return next(new AppError(400, "Invalid User ID format"));
-  }
-  const userExists = await User.findById(userId);
-  if (!userExists) {
-    return next(new AppError(404, "User not found"));
-  }
-  if (userExists.role !== "admin") {
-    return next(new AppError(403, "Only admins can view all results"));
-  }
-  const results = await resultsModel
-    .find()
-    .populate({
-      path: "userId",
-      select: "name",
-    })
-    .populate("examId");
+  const results = await resultsModel.find().populate(["examId", "userId"]);
 
   // Map results to include user name
   const formattedResults = results.map((result) => ({
@@ -38,7 +21,7 @@ exports.getAllResults = catchAsync(async (req, res, next) => {
 
 // get allresults/:userId -> user
 exports.getUserResults = catchAsync(async (req, res, next) => {
-  const userId = req.id;
+  const userId = req.params.userId;
   if (!mongoose.Types.ObjectId.isValid(userId)) {
     return next(new AppError(400, "Invalid User ID format"));
   }
@@ -52,40 +35,13 @@ exports.getUserResults = catchAsync(async (req, res, next) => {
     return next(new AppError(403, "Only students can view their own results"));
   }
 
-  if (userId !== userExists._id.toString()) {
-    return next(new AppError(403, "Unauthorized to view these results"));
-  }
-
   const results = await resultsModel
     .find({ userId: userId })
-    .populate({
-      path: "userId",
-      select: "name",
-    })
-    .populate("examId")
-    .populate("answers.questionId")
+    .populate(["examId", "userId"])
     .sort({ submittedAt: -1 });
 
   // Filter out results where the examId reference is null and map the results
-  const filteredResults = results
-    .filter((result) => result.examId)
-    .map((result) => {
-      // Add feedback for each answer
-      const answersWithFeedback = result.answers.map((answer) => ({
-        questionId: answer.questionId._id,
-        questionDesc: answer.questionId.questionDesc,
-        studentAnswer: answer.answer,
-        correctAnswer: answer.questionId.answer,
-        isCorrect: answer.answer === answer.questionId.answer,
-      }));
-
-      return {
-        ...result.toObject(),
-        userName: result.userId.name,
-        answers: answersWithFeedback,
-        score: result.score,
-      };
-    });
+  const filteredResults = results.filter((result) => result.examId);
 
   res
     .status(200)

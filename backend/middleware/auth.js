@@ -11,6 +11,8 @@ exports.auth = catchAsync((req, res, next) => {
   let decoded = jwt.verify(token, process.env.JWT_SECRET);
   req.id = decoded.id;
   req.role = decoded.role;
+  console.log("User:",req.id);
+  console.log("Role:",req.role);
   next();
 });
 

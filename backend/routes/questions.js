@@ -15,14 +15,13 @@ const {
 
 // GET / - Fetch all questions
 
-router.get("/:examId/allquestions", auth, restrictTo("admin"), getQuestions);
+router.get("/:examId/allquestions", auth, restrictTo("admin","student"), getQuestions);
 
-// POST /admin/exams/:examId/question
+// POST /:examId/question
 router.post(
   "/:examId/question",
   auth,
   restrictTo("admin"),
-  validation(createQuestionSchema),
   save
 );
 

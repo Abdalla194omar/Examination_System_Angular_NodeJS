@@ -15,6 +15,7 @@ const {
 const { validation } = require("../middleware/validation");
 const router = express.Router();
 const { answerSubmitSchema } = require("../validation/results.validation");
+const {submitSchema} = require("../validation/submit.validation")
 
 router.post(
   "/createexam",
@@ -34,10 +35,9 @@ router.patch(
 );
 router.delete("/deleteexam/:id", auth, restrictTo("admin"), deleteExam);
 router.post(
-  "/:id/submit",
+  "/:examId/submit",
   auth,
   restrictTo("student"),
-  validation(answerSubmitSchema),
   submit
 );
 

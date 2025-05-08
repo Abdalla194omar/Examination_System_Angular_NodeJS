@@ -14,7 +14,7 @@
         {{ score && total && score >= total * 0.7 ? 'Great job!' : 'Keep practicing!' }}
       </p>
       <a [routerLink]="['/take-exam', route.snapshot.queryParams['examId']]" class="btn btn-primary me-2">Take Exam Again</a>
-      <a [routerLink]="['/exams']" class="btn btn-secondary">Back to Exams</a>
+      <a [routerLink]="['/result-list']" class="btn btn-secondary">Back to Exams</a>
     </div>
   </div>
 </div>

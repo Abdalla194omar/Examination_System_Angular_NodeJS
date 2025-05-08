@@ -53,16 +53,17 @@ export class ExamService {
 
   submitAnswers(
     examId: string,
+    userId:string | null | undefined,
     answers: { questionId: string; answer: string }[]
   ): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-    const payload = { examId, answers };
+    // const headers = new HttpHeaders({
+    //   'Content-Type': 'application/json',
+    // });
+    const payload = { examId,userId ,answers };
     return this.http.post<any>(
       `${this.apiUrl}/exam/${examId}/submit`,
       payload,
-      { headers }
+      // { headers }
     );
   }
 }

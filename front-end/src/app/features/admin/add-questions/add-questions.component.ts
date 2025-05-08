@@ -65,9 +65,17 @@ export class AddQuestionsComponent {
         'Please fill in all fields, select at least one correct answer, ensure the score is greater than 0, and verify the exam ID.';
       return;
     }
+    this.question = {
+      examId: this.question.examId,
+      questionDesc: this.question.questionDesc,
+      choices: this.question.choices,
+      answer: this.question.answer, 
+      score: this.question.score,
+    };
     console.log('Submitting payload:', this.question);
     this.questionsService.createQuestions(this.examId, this.question).subscribe({
       next: (response) => {
+        console.log("Response Question",response)
         this.successMessage = 'Question added successfully!';
         this.errorMessage = null;
         // Reset the form

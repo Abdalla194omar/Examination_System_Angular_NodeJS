@@ -13,11 +13,12 @@ import { AuthService } from '../../../core/services/auth.service';
 })
 export class MainLayoutComponent {
   isSidebarCollapsed: boolean = false;
+
   constructor(private authService: AuthService) {}
   toggleSidebar(): void {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;
   }
-  onlogout() {
+  onLogOut() {
     this.authService.logout();
   }
 }

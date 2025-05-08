@@ -14,7 +14,7 @@ export class ResultsService {
   getAllResults(): Observable<any> {
     return this.http.get(`${this.apiUrl}/result/admin`);
   }
-  getUserResults(userId: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/result/student`);
+  getUserResults(userId:string|null|undefined): Observable<any> {
+    return this.http.get(`${this.apiUrl}/result/student/${userId}`);
   }
 }

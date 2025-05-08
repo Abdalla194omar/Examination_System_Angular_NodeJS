@@ -4,6 +4,6 @@ const { auth, restrictTo } = require("../middleware/auth");
 const { getAllResults, getUserResults } = require("../controllers/results");
 
 router.get("/admin", auth, restrictTo("admin"), getAllResults);
-router.get("/student", auth, restrictTo("student"), getUserResults);
+router.get("/student/:userId", auth, restrictTo("student"), getUserResults);
 
 module.exports = router;

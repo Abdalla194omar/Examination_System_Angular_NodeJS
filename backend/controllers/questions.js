@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { catchAsync } = require("../utils/catchAsync");
 const AppError = require("../utils/AppError");
-const questionsModel = require("../Models/questions");
+const questionsModel = require("../models/questions");
 const Exam = require("../models/exam");
 
 exports.getQuestions = catchAsync(async (req, res, next) => {
@@ -48,17 +48,16 @@ exports.save = catchAsync(async (req, res, next) => {
     return next(new AppError(400, "At least two choices are required"));
   }
 
-  if (!Array.isArray(answer) || answer.length !== 1) {
-    return next(
-      new AppError(400, "Answer must be an array with exactly one element")
-    );
-  }
+  // Validate answer: must be an array with exactly one element
+  //   if (!Array.isArray(answer) || answer.length !== 1) {
+  //     return next(new AppError(400, 'Answer must be an array with exactly one element'));
+  //   }
 
   const question = new questionsModel({
     examId,
     questionDesc,
     choices,
-    answer,
+    answer, // Already an array with one element
     score,
   });
 

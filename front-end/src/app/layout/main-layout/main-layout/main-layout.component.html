@@ -17,14 +17,14 @@
           <i class="bi bi-house-door-fill me-3"></i
           ><span class="fs-6 fw-semibold">Home</span>
         </a>
-        <!-- <a
-          [routerLink]="['/exams', '681025a454d988c710da50ae', 'allquestions']"
+        <a
+          [routerLink]="['/result-list']"
           class="list-group-item list-group-item-action py-2 my-2 rounded text-white"
           routerLinkActive="active bg-white text-danger"
         >
           <i class="bi bi-journal-check me-3"></i
-          ><span class="fs-6 fw-semibold">Take Exam</span>
-        </a> -->
+          ><span class="fs-6 fw-semibold">Result List</span>
+        </a>
         <a
           [routerLink]="['/exams']"
           class="list-group-item list-group-item-action py-2 my-2 rounded text-white"
@@ -34,15 +34,7 @@
           ><span class="fs-6 fw-semibold">Exams</span>
         </a>
         <a
-          [routerLink]="['/add-exam']"
-          class="list-group-item list-group-item-action py-2 my-2 rounded text-white"
-          routerLinkActive="active bg-white text-danger"
-        >
-          <i class="bi bi-journal-check me-3"></i
-          ><span class="fs-6 fw-semibold">Add Exam</span>
-        </a>
-        <a
-          routerLink="/profile"
+          [routerLink]="['/profile']"
           class="list-group-item list-group-item-action py-2 my-2 rounded text-white"
           routerLinkActive="active bg-white text-danger"
         >
@@ -50,7 +42,7 @@
           ><span class="fs-6 fw-semibold">Profile</span>
         </a>
         <a
-          (click)="onlogout()"
+          (click)="onLogOut()"
           class="list-group-item list-group-item-action py-2 my-2 rounded text-white"
           routerLinkActive="active bg-white text-danger"
         >

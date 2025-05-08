@@ -1,33 +1,19 @@
-// import { Exam } from "./exam.model";
-
-import { User } from './user.model';
-
 export interface Result {
-  // examId?: Exam;
-  // // userId: User;
-  // _id:string,
-  // answers: { questionId: string; answer: string | string[] }[];
-  // score: number;
-  // createdAt?: string;
-  // updatedAt?: string;
   _id: string;
-  userId: User;
-  examId: {
-    _id: string;
-    title?: string; // Populated from Exam model
-    // Add other fields as needed based on your Exam schema
-  };
+  userId: { _id: string; username: string }; // Simplified to match populated fields
+  examId: { _id: string; title?: string };
   answers: Answer[];
   score: number;
-  submittedAt: string; // Date converted to ISO string by Angular
-  createdAt?: string; // From timestamps
-  updatedAt?: string; // From timestamps
+  submittedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
+
 export interface Answer {
   questionId: {
     _id: string;
-    questionDesc: string; // Populated from Question model
-    answer: string[]; // Populated correct answer from Question model
+    questionDesc: string;
+    answer: string; // Changed to string to match backend
   };
   userAnswer: string;
 }

@@ -1,7 +1,9 @@
 const Exam = require("../models/exam");
-const questionsModel = require("../Models/questions");
-const resultsModel = require("../Models/results");
+const User = require("../models/user");
+const questionsModel = require("../models/questions");
+const resultsModel = require("../models/results");
 const AppError = require("../utils/AppError");
+const mongoose = require("mongoose");
 const { catchAsync } = require("../utils/catchAsync");
 
 exports.createExam = catchAsync(async (req, res, next) => {
@@ -85,12 +87,11 @@ exports.getExamById = catchAsync(async (req, res, next) => {
 });
 
 exports.submit = catchAsync(async (req, res, next) => {
-  const { answers, examId } = req.body;
-  const userId = req.id;
-
+  const { answers, examId, userId } = req.body;
   console.log(examId);
   // Validate user
-  const user = await usersModel.findById(userId);
+  const user = await User.findById(userId);
+  console.log("User Id", userId);
   if (!user) {
     return next(new AppError(404, "User not found"));
   }
@@ -126,10 +127,10 @@ exports.submit = catchAsync(async (req, res, next) => {
     );
   }
   // Prevent duplicate submissions
-  const existingResult = await resultsModel.findOne({ examId, userId });
-  if (existingResult) {
-    return next(new AppError(400, "You have already submitted this exam"));
-  }
+  // const existingResult = await resultsModel.findOne({ examId, userId });
+  // if (existingResult) {
+  //     return next(new AppError(400, 'You have already submitted this exam'));
+  // }
   // Calculate score
   let totalScore = 0;
   const questionScore = 10;
@@ -152,7 +153,7 @@ exports.submit = catchAsync(async (req, res, next) => {
   // Save results
   const result = new resultsModel({
     examId,
-    // userId,
+    userId,
     answers: validAnswers,
     score: totalScore,
   });

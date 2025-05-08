@@ -1,6 +1,6 @@
 
 <section class="container py-5">
-  <h2 class="text-center text-decoration-underline text-danger mb-4" style="background: linear-gradient(90deg, #1e3c72, #2a5298);  color: transparent; font-weight: 700; text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);">
+  <h2 class="text-center  text-danger mb-4" style="  color: transparent; font-weight: 700; text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);">
     Edit Question
   </h2>
 
@@ -27,7 +27,7 @@
           <label for="questionDesc" class="form-label fw-bold text-dark">Question Description</label>
           <textarea
             id="questionDesc"
-            class="form-control border-primary"
+            class="form-control "
             [(ngModel)]="question.questionDesc"
             name="questionDesc"
             rows="4"
@@ -43,7 +43,7 @@
           <input
             type="number"
             id="score"
-            class="form-control border-primary"
+            class="form-control "
             [(ngModel)]="question.score"
             name="score"
             min="1"
@@ -59,7 +59,7 @@
             <div class="input-group mb-3" style="transition: all 0.3s ease;">
               <input
                 type="text"
-                class="form-control border-primary"
+                class="form-control "
                 [(ngModel)]="question.choices[i]"
                 [name]="'choice-' + i"
                 placeholder="Enter or edit choice {{ i + 1 }}"
@@ -88,7 +88,7 @@
           }
           <button
             type="button"
-            class="btn btn-outline-primary"
+            class="btn btn-outline-danger"
             (click)="addChoice()"
             style="transition: background 0.3s, transform 0.2s;"
                >
