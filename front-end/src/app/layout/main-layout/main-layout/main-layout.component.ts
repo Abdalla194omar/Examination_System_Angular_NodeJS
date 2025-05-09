@@ -13,8 +13,11 @@ import { AuthService } from '../../../core/services/auth.service';
 })
 export class MainLayoutComponent {
   isSidebarCollapsed: boolean = false;
-
-  constructor(private authService: AuthService) {}
+  userRole? :boolean;
+  constructor(public authService: AuthService) {}
+  isAdmin(){
+    return this.userRole= this.authService.isAdmin()
+  }
   toggleSidebar(): void {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;
   }
